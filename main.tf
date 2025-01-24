@@ -1,4 +1,4 @@
-# File: localstack.tf
+# File: main.tf
 terraform {
   required_providers {
     docker = {
@@ -8,90 +8,41 @@ terraform {
   }
 }
 
-# Define the Docker provider
 provider "docker" {
-  #host = "unix:///var/run/docker.sock"
   host = "unix:///home/pixie/.docker/desktop/docker.sock"
 }
 
-# Define the LocalStack image
-resource "docker_image" "localstack" {
-  name = "localstack/localstack"
+module localstack {
+  source = "./localstack"
+  providers = { docker=docker }
 }
 
-# Define the main LocalStack container
-resource "docker_container" "localstack" {
-  name  = "localstack"
-  image = docker_image.localstack.name
+module "localstack_s3" {
+  source = "./localstack/localstack_s3"
+  providers = { docker=docker }
 }
 
-# Define the LocalStack network
-resource "docker_network" "localstack" {
-  name = "localstack"
+module "localstack_dynamodb" {
+  source = "./localstack/localstack_dynamodb"
+  providers = { docker=docker }
 }
 
-# Define the S3 container
-resource "docker_container" "localstack_s3" {
-  name       = "localstack-s3"
-  image      = "localstack/localstack"
-  ports {
-    internal = 4566
-    external = 4566
-  }
-  depends_on = [docker_container.localstack]  # Start after the main container
+module "localstack_lambda" {
+  source = "./localstack/localstack_lambda"
+  providers = { docker=docker }
 }
 
-# Define the DynamoDB container
-resource "docker_container" "localstack_dynamodb" {
-  name       = "localstack-dynamodb"
-  image      = "localstack/localstack"
-  ports {
-    internal = 4567
-    external = 4567
-  }
-  depends_on = [docker_container.localstack]  # Start after the main container
+module "localstack_api_gateway" {
+  source = "./localstack/localstack_api_gateway"
+  providers = { docker=docker }
 }
 
-# Define the Lambda container
-resource "docker_container" "localstack_lambda" {
-  name       = "localstack-lambda"
-  image      = "localstack/localstack"
-  ports  {
-    internal = 4568
-    external = 4568
-  }
-  depends_on = [docker_container.localstack]  # Start after the main container
+module "localstack_cloudwatch" {
+  source = "./localstack/localstack_cloudwatch"
+  providers = { docker=docker }
 }
 
-# Define the API Gateway container
-resource "docker_container" "localstack_api_gateway" {
-  name       = "localstack-api-gateway"
-  image      = "localstack/localstack"
-  ports {
-    internal = 4569
-    external = 4569
-  }
-  depends_on = [docker_container.localstack]  # Start after the main container
-}
-
-# Define the EC2 container
-resource "docker_container" "localstack_ec2" {
-  name       = "localstack-ec2"
-  image      = "localstack/localstack"
-  ports {
-    internal = 4570
-    external = 4570
-  }
-  depends_on = [docker_container.localstack]  # Start after the main container
-}
-
-# Define the CloudWatch container
-resource "docker_container" "localstack_cloudwatch" {
-  name       = "localstack-cloudwatch"
-  image      = "localstack/localstack"
-  ports {
-    internal = 4571
-    external = 4571
-  }
-  depends_on = [docker_container.localstack]  # Start after the main container
+module "localstack_ec2" {
+  source = "./localstack/localstack_ec2"
+   providers = { docker=docker }
 }
