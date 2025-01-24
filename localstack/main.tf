@@ -12,6 +12,6 @@ resource "docker_container" "localstack" {
 }
 
 # Define the LocalStack network
-resource "docker_network" "localstack" {
-  name = "localstack"
-}
+#resource "docker_network" "localstack" {
+#  name = "localstack"
+#}
