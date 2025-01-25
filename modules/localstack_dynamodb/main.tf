@@ -6,7 +6,7 @@ resource "docker_container" "localstack_dynamodb" {
   image      = "localstack/localstack"
   ports {
     internal = 4566
-    #external = 4567
+    #external = 4569
   }
   hostname="dynamodb"
   networks_advanced {

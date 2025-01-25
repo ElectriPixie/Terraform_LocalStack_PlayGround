@@ -6,7 +6,7 @@ resource "docker_container" "localstack_api_gateway" {
   image      = "localstack/localstack"
   ports {
     internal = 4566
-    #external = 4566
+    #external = 4567
   }
   env = ["SERVICES=apigateway"]
   hostname = "apigateway"
