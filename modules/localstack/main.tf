@@ -1,11 +1,6 @@
 # File: localstack.tf
 
 locals {
-  # Remove the service endpoints specified by the skip_endpoint list
-  #service_endpoints_without_skip = tomap({
-  #  for key, value in var.service_endpoints :
-  #  key => value if !contains(var.skip_endpoint, key)
-  #})
   services_map = length(var.services) > 0 ? {
     "SERVICES" = join(",", var.services)
   } : {}
@@ -13,18 +8,18 @@ locals {
 
 # Define the LocalStack image
 resource "docker_image" "localstack" {
-  name = "localstack/localstack"
+  name = var.image_name
 }
 
 # Define the main LocalStack container
 resource "docker_container" "localstack" {
-  name  = "localstack"
+  name  = var.container_name 
   image = docker_image.localstack.name
   ports {
     internal = 4566
     external = 4566
   }
-  hostname = "localstack"
+  hostname = var.host_name
   networks_advanced {
     name = var.network_name  
   } 

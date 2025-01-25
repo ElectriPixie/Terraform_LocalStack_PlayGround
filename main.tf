@@ -21,6 +21,12 @@ module "localstack" {
   source = "./modules/localstack"
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
-  #service_endpoints = var.service_endpoints
   environment_root = var.environment_root
+  host_name = "localstack"
+  container_name = "localstack"
+  image_name = "localstack/localstack"
+  ports = {
+    internal = 4566
+    external = 4566
+  }
 }
