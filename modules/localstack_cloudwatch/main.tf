@@ -9,7 +9,7 @@ resource "docker_container" "localstack_cloudwatch" {
     internal = 4566
     #external = 4580
   }
-  env = ["SERVICES=cloudwatch"]
+  env = merge(var.service_endpoints, var.environment)
   hostname = "cloudwatch"
   networks_advanced {
     name = var.network_name  

@@ -8,9 +8,9 @@ resource "docker_container" "localstack_ec2" {
     internal = 4566
     #external = 4590
   }
+  env = merge(var.service_endpoints, var.environment)
   hostname="ec2"
   networks_advanced {
     name = var.network_name  
   }
-  env = ["SERVICES=ec2"]
 }

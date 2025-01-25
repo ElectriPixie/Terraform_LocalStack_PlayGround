@@ -8,9 +8,9 @@ resource "docker_container" "localstack_dynamodb" {
     internal = 4566
     #external = 4569
   }
+  env = merge(var.service_endpoints, var.environment)
   hostname="dynamodb"
   networks_advanced {
     name = var.network_name  
   }
-  env = ["SERVICES=dynamodb"]
 }

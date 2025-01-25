@@ -8,7 +8,7 @@ resource "docker_container" "localstack_s3" {
     internal = 4566
     #external = 4572
   }
-  env = ["SERVICES=s3"]
+  env = merge(var.service_endpoints, var.environment)
   hostname = "s3"
   networks_advanced {
     name = var.network_name  

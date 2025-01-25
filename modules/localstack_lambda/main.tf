@@ -8,9 +8,9 @@ resource "docker_container" "localstack_lambda" {
     internal = 4566
     #external = 4574
   }
+  env = merge(var.service_endpoints, var.environment)
   hostname="lambda"
   networks_advanced {
     name = var.network_name  
   }
-  env = ["SERVICES=lambda"]
 }
