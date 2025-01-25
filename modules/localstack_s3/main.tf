@@ -8,14 +8,9 @@ resource "docker_container" "localstack_s3" {
     internal = 4566
     external = 4566
   }
+  env = ["SERVICES=s3"]
   hostname = "s3"
   networks_advanced {
     name = var.network_name  
   }
-  command = [
-    "localstack",
-    "start",
-    "--services",
-    "aws_s3",
-  ]
 }

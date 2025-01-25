@@ -12,10 +12,5 @@ resource "docker_container" "localstack_ec2" {
   networks_advanced {
     name = var.network_name  
   }
-  command = [
-    "localstack",
-    "start",
-    "--services",
-    "aws_ec2",
-  ]
+  env = ["SERVICES=ec2"]
 }

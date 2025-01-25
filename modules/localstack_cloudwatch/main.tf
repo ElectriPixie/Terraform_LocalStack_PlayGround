@@ -9,14 +9,9 @@ resource "docker_container" "localstack_cloudwatch" {
     internal = 4571
     external = 4571
   }
+  env = ["SERVICES=cloudwatch"]
   hostname = "cloudwatch"
   networks_advanced {
     name = var.network_name  
   }
-  command = [
-    "localstack",
-    "start",
-    "--services",
-    "aws_cloudwatch",
-  ]
 }

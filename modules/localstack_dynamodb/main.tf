@@ -12,10 +12,5 @@ resource "docker_container" "localstack_dynamodb" {
   networks_advanced {
     name = var.network_name  
   }
-  command = [
-    "localstack",
-    "start",
-    "--services",
-    "aws_dynamodb",
-  ]
+  env = ["SERVICES=dynamodb"]
 }
