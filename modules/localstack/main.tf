@@ -2,10 +2,10 @@
 
 locals {
   # Remove the service endpoints specified by the skip_endpoint list
-  service_endpoints_without_skip = tomap({
-    for key, value in var.service_endpoints :
-    key => value if !contains(var.skip_endpoint, key)
-  })
+  #service_endpoints_without_skip = tomap({
+  #  for key, value in var.service_endpoints :
+  #  key => value if !contains(var.skip_endpoint, key)
+  #})
   services_map = length(var.services) > 0 ? {
     "SERVICES" = join(",", var.services)
   } : {}
@@ -31,7 +31,7 @@ resource "docker_container" "localstack" {
 
   env = flatten([
     #I feel like maybe I could be doing this better
-    for key, value in merge(local.service_endpoints_without_skip, var.environment, var.environment_root, local.services_map) : 
+    for key, value in merge(var.environment, var.environment_root, local.services_map) : 
     "${key}=${value}"
   ])
 }
