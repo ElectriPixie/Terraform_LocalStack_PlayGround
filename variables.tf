@@ -1,6 +1,6 @@
 variable "service_endpoints" { 
   description = "Map of environment variables for configuring LocalStack services."
-  type = list(string)
+  type = map(string)
   default = {
     S3_ENDPOINT          = "http://s3:4566"
     DYNAMODB_ENDPOINT    = "http://dynamodb:4566"
