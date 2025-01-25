@@ -5,8 +5,8 @@ resource "docker_container" "localstack_lambda" {
   name       = "localstack-lambda"
   image      = "localstack/localstack"
   ports  {
-    internal = 4568
-    external = 4568
+    internal = 4566
+    #external = 4568
   }
   hostname="lambda"
   networks_advanced {

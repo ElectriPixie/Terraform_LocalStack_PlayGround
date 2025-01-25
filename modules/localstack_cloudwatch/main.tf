@@ -6,8 +6,8 @@ resource "docker_container" "localstack_cloudwatch" {
   image      = "localstack/localstack"
   provider = docker
   ports {
-    internal = 4571
-    external = 4571
+    internal = 4566
+    #external = 4571
   }
   env = ["SERVICES=cloudwatch"]
   hostname = "cloudwatch"

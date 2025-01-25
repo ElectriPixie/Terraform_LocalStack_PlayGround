@@ -6,7 +6,7 @@ resource "docker_container" "localstack_s3" {
   image      = "localstack/localstack"
   ports {
     internal = 4566
-    external = 4566
+    #external = 4566
   }
   env = ["SERVICES=s3"]
   hostname = "s3"
