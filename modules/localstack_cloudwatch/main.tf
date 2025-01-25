@@ -1,5 +1,13 @@
 # File: localstack_cloudwatch.tf
 
+locals {
+  # Remove the service endpoints specified by the skip_endpoint map
+  service_endpoints_without_skip = tomap({
+    for key, value in var.service_endpoints : 
+    key => value if !contains(keys(var.skip_endpoint), key)
+  })
+}
+
 # Define the CloudWatch container
 resource "docker_container" "localstack_cloudwatch" {
   name       = "localstack-cloudwatch"
@@ -9,7 +17,10 @@ resource "docker_container" "localstack_cloudwatch" {
     internal = 4566
     #external = 4580
   }
-  env = toset(values(merge(var.service_endpoints, var.environment)))
+  env = flatten([
+    for key, value in merge(local.service_endpoints_without_skip, var.environment) : 
+    "${key}=${value}"
+  ]) 
   hostname = "cloudwatch"
   networks_advanced {
     name = var.network_name  

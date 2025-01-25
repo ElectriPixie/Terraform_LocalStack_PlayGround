@@ -11,3 +11,8 @@ variable "environment" {
     SERVICES = "apigateway"
   }
 }
+variable "skip_endpoint" {
+  description = "The key for the endpoint to remove"
+  type        = list(string)
+  default     = ["APIGATEWAY_ENDPOINT"]
+}

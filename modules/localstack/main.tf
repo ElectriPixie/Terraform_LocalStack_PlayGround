@@ -1,5 +1,13 @@
 # File: localstack.tf
 
+locals {
+  # Remove the service endpoints specified by the skip_endpoint map
+  service_endpoints_without_skip = tomap({
+    for key, value in var.service_endpoints : 
+    key => value if !contains(keys(var.skip_endpoint), key)
+  })
+}
+
 # Define the LocalStack image
 resource "docker_image" "localstack" {
   name = "localstack/localstack"
@@ -13,9 +21,12 @@ resource "docker_container" "localstack" {
     internal = 4566
     external = 4566
   }
-  env = toset(values(merge(var.service_endpoints, var.environment)))
   hostname = "localstack"
   networks_advanced {
     name = var.network_name  
   }
+  env = flatten([
+    for key, value in merge(local.service_endpoints_without_skip, var.environment) : 
+    "${key}=${value}"
+  ])
 }

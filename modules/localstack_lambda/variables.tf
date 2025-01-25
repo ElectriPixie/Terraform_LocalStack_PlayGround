@@ -11,3 +11,8 @@ variable "environment" {
     SERVICES = "lambda"
   }
 }
+variable "skip_endpoint" {
+  description = "The key for the endpoint to remove"
+  type        = list(string)
+  default     = ["LAMBDA_ENDPOINT"]  # You can set a default or pass it as an input
+}

@@ -11,3 +11,8 @@ variable "environment" {
     SERVICES = "dynamodb"
   }
 }
+variable "skip_endpoint" {
+  description = "The key for the endpoint to remove"
+  type        = string(list)
+  default     = ["DYNAMODB_ENDPOINT"] 
+}

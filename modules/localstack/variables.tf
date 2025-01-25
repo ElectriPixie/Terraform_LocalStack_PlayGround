@@ -9,3 +9,8 @@ variable "environment" {
   type = map(string)
   default = {}
 }
+variable "skip_endpoint" {
+  description = "The key for the endpoint to remove"
+  type        = list(string)
+  default     = [] 
+}

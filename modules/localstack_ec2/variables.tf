@@ -11,3 +11,8 @@ variable "environment" {
     SERVICES = "ec2"
   }
 }
+variable "skip_endpoint" {
+  description = "The key for the endpoint to remove"
+  type        = list(string)
+  default     = ["EC2_ENDPOINT"]  # You can set a default or pass it as an input
+}

@@ -6,7 +6,3 @@ output "image" {
 output "container" {
   value = docker_container.localstack.name
 }
-
-#output "network" {
-#  value = docker_network.localstack.name
-#}
