@@ -12,37 +12,43 @@ provider "docker" {
   host = "unix:///home/pixie/.docker/desktop/docker.sock"
 }
 
-module localstack {
-  source = "./localstack"
+module localstack_network {
+  source = "./modules/localstack_network"
   providers = { docker=docker }
 }
 
 module "localstack_s3" {
-  source = "./localstack/localstack_s3"
+  source = "./modules/localstack_s3"
   providers = { docker=docker }
+  network_name = module.localstack_network.network_name
 }
 
 module "localstack_dynamodb" {
-  source = "./localstack/localstack_dynamodb"
+  source = "./modules/localstack_dynamodb"
   providers = { docker=docker }
+  network_name = module.localstack_network.network_name
 }
 
 module "localstack_lambda" {
-  source = "./localstack/localstack_lambda"
+  source = "./modules/localstack_lambda"
   providers = { docker=docker }
+  network_name = module.localstack_network.network_name
 }
 
 module "localstack_api_gateway" {
-  source = "./localstack/localstack_api_gateway"
+  source = "./modules/localstack_api_gateway"
   providers = { docker=docker }
+  network_name = module.localstack_network.network_name
 }
 
 module "localstack_cloudwatch" {
-  source = "./localstack/localstack_cloudwatch"
+  source = "./modules/localstack_cloudwatch"
   providers = { docker=docker }
+  network_name = module.localstack_network.network_name
 }
 
 module "localstack_ec2" {
-  source = "./localstack/localstack_ec2"
-   providers = { docker=docker }
+  source = "./modules/localstack_ec2"
+  providers = { docker=docker }
+  network_name = module.localstack_network.network_name
 }

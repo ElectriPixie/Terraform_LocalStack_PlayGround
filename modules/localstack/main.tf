@@ -9,9 +9,9 @@ resource "docker_image" "localstack" {
 resource "docker_container" "localstack" {
   name  = "localstack"
   image = docker_image.localstack.name
+  hostname = "localstack"
+  networks_advanced {
+    name = var.network_name  
+  }
 }
 
-# Define the LocalStack network
-#resource "docker_network" "localstack" {
-#  name = "localstack"
-#}
