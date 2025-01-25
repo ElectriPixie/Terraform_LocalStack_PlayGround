@@ -6,6 +6,9 @@ locals {
     for key, value in var.service_endpoints :
     key => value if !contains(var.skip_endpoint, key)
   })
+  services_map = length(var.services) > 0 ? {
+    "SERVICES" = join(",", var.services)
+  } : {}
 }
 
 # Define the LocalStack image
@@ -24,9 +27,11 @@ resource "docker_container" "localstack" {
   hostname = "localstack"
   networks_advanced {
     name = var.network_name  
-  }
+  } 
+
   env = flatten([
-    for key, value in merge(local.service_endpoints_without_skip, var.environment) : 
+    #I feel like maybe I could be doing this better
+    for key, value in merge(local.service_endpoints_without_skip, var.environment, var.environment_root, local.services_map) : 
     "${key}=${value}"
   ])
 }

@@ -6,6 +6,9 @@ locals {
     for key, value in var.service_endpoints :
     key => value if !contains(var.skip_endpoint, key)
   })
+  services_map = length(var.services) > 0 ? {
+    "SERVICES" = join(",", var.services)
+  } : {}
 }
 
 # Define the DynamoDB container
@@ -17,7 +20,7 @@ resource "docker_container" "localstack_dynamodb" {
     #external = 4569
   }
   env = flatten([
-    for key, value in merge(local.service_endpoints_without_skip, var.environment) : 
+    for key, value in merge(local.service_endpoints_without_skip, var.environment, local.services_map) : 
     "${key}=${value}"
   ]) 
   hostname="dynamodb"
