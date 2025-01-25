@@ -1,12 +1,13 @@
 # File: localstack_api_gateway.tf
 
 locals {
-  # Remove the service endpoints specified by the skip_endpoint map
+  # Remove the service endpoints specified by the skip_endpoint list
   service_endpoints_without_skip = tomap({
-    for key, value in var.service_endpoints : 
-    key => value if !contains(keys(var.skip_endpoint), key)
+    for key, value in var.service_endpoints :
+    key => value if !contains(var.skip_endpoint, key)
   })
 }
+
 
 # Define the API Gateway container
 resource "docker_container" "localstack_api_gateway" {

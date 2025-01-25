@@ -13,6 +13,6 @@ variable "environment" {
 }
 variable "skip_endpoint" {
   description = "The key for the endpoint to remove"
-  type        = string(list)
+  type        = list(string)
   default     = ["DYNAMODB_ENDPOINT"] 
 }
