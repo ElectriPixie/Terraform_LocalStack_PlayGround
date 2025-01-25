@@ -20,7 +20,7 @@ resource "docker_container" "localstack_s3" {
     #external = 4572
   }
   env = flatten([
-    for key, value in merge(local.service_endpoints_without_skip, var.environment, local.services_map) : 
+    for key, value in merge(local.service_endpoints_without_skip, var.environment, var.environment_root, local.services_map) : 
     "${key}=${value}"
   ])  
   hostname = "s3"

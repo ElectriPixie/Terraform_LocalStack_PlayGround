@@ -22,6 +22,7 @@ module "localstack" {
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
   service_endpoints = var.service_endpoints
+  environment_root = var.environment_root
 }
 
 module "localstack_s3" {
@@ -29,6 +30,7 @@ module "localstack_s3" {
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
   service_endpoints = var.service_endpoints
+  environment_root = var.environment_root
 }
 
 module "localstack_dynamodb" {
@@ -36,6 +38,7 @@ module "localstack_dynamodb" {
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
   service_endpoints = var.service_endpoints
+  environment_root = var.environment_root
 }
 
 module "localstack_lambda" {
@@ -43,6 +46,7 @@ module "localstack_lambda" {
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
   service_endpoints = var.service_endpoints
+  environment_root = var.environment_root
 }
 
 module "localstack_api_gateway" {
@@ -50,6 +54,7 @@ module "localstack_api_gateway" {
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
   service_endpoints = var.service_endpoints
+  environment_root = var.environment_root
 }
 
 module "localstack_cloudwatch" {
@@ -57,6 +62,7 @@ module "localstack_cloudwatch" {
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
   service_endpoints = var.service_endpoints
+  environment_root = var.environment_root
 }
 
 module "localstack_ec2" {
@@ -64,4 +70,5 @@ module "localstack_ec2" {
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
   service_endpoints = var.service_endpoints
+  environment_root = var.environment_root
 }
