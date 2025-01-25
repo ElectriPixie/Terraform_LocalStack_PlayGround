@@ -13,7 +13,7 @@ resource "docker_container" "localstack" {
     internal = 4566
     external = 4566
   }
-  env = toset(merge(var.service_endpoints, var.environment))
+  env = toset(values(merge(var.service_endpoints, var.environment)))
   hostname = "localstack"
   networks_advanced {
     name = var.network_name  

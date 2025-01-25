@@ -8,7 +8,7 @@ resource "docker_container" "localstack_api_gateway" {
     internal = 4566
     #external = 4567
   }
-  env = toset(merge(var.service_endpoints, var.environment))
+  env = toset(values(merge(var.service_endpoints, var.environment)))
   hostname = "apigateway"
   networks_advanced {
     name = var.network_name  
