@@ -1,28 +1,30 @@
 variable "network_name" {}
 
 variable "ports" {
-  description = "Ports to use"
-  type = map(string)
-  default = {
-  }
+  type = list(map(string))
+  default = [{
+      internal = 4566,
+      external = 4566,
+      protocol = ""
+      }]
 }
 
 variable "host_name" {
   description = "Container Hostname"
   type = string
-  default=""
+  default="localstack"
 }
 
 variable "container_name" {
   description = "Container Name"
   type = string
-  default=""    
+  default="localstack"    
 }
 
 variable "image_name" {
   description = "Image Name"
   type = string
-  default=""    
+  default="localstack/localstack"    
 }
 
 variable "services"{

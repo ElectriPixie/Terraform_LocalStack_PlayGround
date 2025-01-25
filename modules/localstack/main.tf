@@ -15,10 +15,16 @@ resource "docker_image" "localstack" {
 resource "docker_container" "localstack" {
   name  = var.container_name 
   image = docker_image.localstack.name
-  ports {
-    internal = 4566
-    external = 4566
+
+  dynamic "ports" {
+    for_each = var.ports
+    content {
+      internal = ports.value.internal
+      external = ports.value.external
+      protocol = ports.value.protocol
+    }
   }
+
   hostname = var.host_name
   networks_advanced {
     name = var.network_name  

@@ -25,8 +25,5 @@ module "localstack" {
   host_name = "localstack"
   container_name = "localstack"
   image_name = "localstack/localstack"
-  ports = {
-    internal = 4566
-    external = 4566
-  }
+  ports = [{internal=4566, external=4566, protocol=""}]
 }
