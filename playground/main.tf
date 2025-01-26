@@ -6,7 +6,7 @@ module localstack_network {
 }
 
 module "localstack" {
-  source = "git::https://github.com/ElectriPixie/Terraform_LocalStack_Module.giti//localstack"
+  source = "git::https://github.com/ElectriPixie/Terraform_LocalStack_Module.git//localstack"
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
   environment_root = var.environment_root
