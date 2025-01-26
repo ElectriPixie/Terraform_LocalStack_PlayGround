@@ -1,7 +1,7 @@
 # File: main.tf
 
 module localstack_network {
-  source = "git::https://github.com/ElectriPixie/Terraform_LocalStack_Module.git//localstack_network
+  source = "git::https://github.com/ElectriPixie/Terraform_LocalStack_Module.git//localstack_network"
   providers = { docker=docker }
 }
 
