@@ -1,12 +1,12 @@
 # File: main.tf
 
 module localstack_network {
-  source = "./modules/localstack_network"
+  source = "https://github.com/ElectriPixie/Terraform_LocalStack_Network_Module.git"
   providers = { docker=docker }
 }
 
 module "localstack" {
-  source = "./modules/localstack"
+  source = ""
   providers = { docker=docker }
   network_name = module.localstack_network.network_name
   environment_root = var.environment_root
