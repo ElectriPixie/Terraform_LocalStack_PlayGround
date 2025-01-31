@@ -1,1 +1,0 @@
-# Define outputs for each resource
